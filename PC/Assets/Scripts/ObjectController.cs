@@ -1,5 +1,6 @@
 ﻿using System.Xml.Schema;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Assets.Scripts
 {
@@ -14,82 +15,84 @@ namespace Assets.Scripts
         void Start()
         {
             _movePosition = transform.position;
-            _tileMoveSpeed = (10f*Time.deltaTime);
+            _tileMoveSpeed = (20f*Time.deltaTime);
         }
         void Update ()
         {
             GetInput();
-            Move();
+            MoveDirection();
         }
 
-        private void Move()
+        private void MoveDirection()
         {
-            if (_direction == 'N')
-            {
-                if (!_isMoving)
-                {
-                    Vector3 rayPosition = new Vector3(transform.position.x,(transform.position.y + 1),transform.position.z);
-                    Ray collisionRay = new Ray(rayPosition, Vector3.forward);
-                    RaycastHit hit;
+            Vector3 position = transform.position;
 
-                    Debug.DrawRay(rayPosition, Vector3.forward*gridSize);
-                    if (Physics.Raycast(collisionRay, out hit, gridSize))
-                    {
-                        _movePosition = new Vector3(hit.point.x, (hit.point.y -1), (hit.point.z - 0.5f));
-                        _isMoving = true;
-                        Debug.Log(_movePosition);
-                    }
+            if (!_isMoving)
+            {
+                Vector3 rayPosition = new Vector3(transform.position.x, (transform.position.y + 1), transform.position.z);
+                Ray collisionRay = new Ray();
+                RaycastHit hit;
+
+                switch (_direction)
+                {
+                    case 'N':
+
+                        collisionRay = new Ray(rayPosition, Vector3.forward);
+                        break;
+
+                    case 'S':
+
+                        collisionRay = new Ray(rayPosition, Vector3.back);
+                        break;
+
+                    case 'E':
+
+                        collisionRay = new Ray(rayPosition, Vector3.left);
+                        break;
+
+                    case 'W':
+
+                        collisionRay = new Ray(rayPosition, Vector3.right);
+                        break;
+
+                    default:
+
+                        Debug.Log("No Direction Set");
+                        break;
                 }
-            }
-            if (_direction == 'S')
-            {
-                if (!_isMoving)
+                
+                if (Physics.Raycast(collisionRay, out hit, gridSize))
                 {
-                    Vector3 rayPosition = new Vector3(transform.position.x, (transform.position.y + 1), transform.position.z);
-                    Ray collisionRay = new Ray(rayPosition, Vector3.back);
-                    RaycastHit hit;
-
-                    Debug.DrawRay(rayPosition, Vector3.back * gridSize);
-                    if (Physics.Raycast(collisionRay, out hit, gridSize))
+                    switch (_direction)
                     {
-                        _movePosition = new Vector3(hit.point.x, (hit.point.y - 1), (hit.point.z + 0.5f));
-                        _isMoving = true;
-                        Debug.Log(_movePosition);
-                    }
-                }
-            }
-            if (_direction == 'E')
-            {
-                if (!_isMoving)
-                {
-                    Vector3 rayPosition = new Vector3(transform.position.x, (transform.position.y + 1), transform.position.z);
-                    Ray collisionRay = new Ray(rayPosition, Vector3.left);
-                    RaycastHit hit;
+                        case 'N':
 
-                    Debug.DrawRay(rayPosition, Vector3.left * gridSize);
-                    if (Physics.Raycast(collisionRay, out hit, gridSize))
-                    {
-                        _movePosition = new Vector3((hit.point.x + 0.5f), (hit.point.y - 1), hit.point.z);
-                        _isMoving = true;
-                        Debug.Log(_movePosition);
-                    }
-                }
-            }
-            if (_direction == 'W')
-            {
-                if (!_isMoving)
-                {
-                    Vector3 rayPosition = new Vector3(transform.position.x,(transform.position.y + 1),transform.position.z);
-                    Ray collisionRay = new Ray(rayPosition, Vector3.right);
-                    RaycastHit hit;
+                            position = new Vector3(hit.point.x, (hit.point.y - 1), (hit.point.z - 0.5f));
+                            break;
 
-                    Debug.DrawRay(rayPosition, Vector3.right * gridSize);
-                    if (Physics.Raycast(collisionRay, out hit, gridSize))
-                    {
-                        _movePosition = new Vector3((hit.point.x - 0.5f), (hit.point.y - 1), hit.point.z);
-                        _isMoving = true;
-                        Debug.Log(_movePosition);
+                        case 'S':
+
+                            position = new Vector3(hit.point.x, (hit.point.y - 1), (hit.point.z + 0.5f));
+                            break;
+
+                        case 'E':
+
+                            position = new Vector3((hit.point.x + 0.5f), (hit.point.y - 1), hit.point.z);
+                            break;
+
+                        case 'W':
+
+                            position = new Vector3((hit.point.x - 0.5f), (hit.point.y - 1), hit.point.z);
+                            break;
+
+                        default:
+
+                            Debug.Log("No Direction Set");
+                            break;
                     }
+
+                    _movePosition = position;
+                    _isMoving = true;
                 }
             }
 
@@ -98,8 +101,7 @@ namespace Assets.Scripts
                 _isMoving = false;
                 return;
             }
-            transform.position = Vector3.Lerp(transform.position, _movePosition, _tileMoveSpeed);
-
+            transform.position = Vector3.MoveTowards(transform.position, _movePosition, _tileMoveSpeed);
         }
 
         private void GetInput()
