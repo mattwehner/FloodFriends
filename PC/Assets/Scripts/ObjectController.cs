@@ -11,11 +11,12 @@ namespace Assets.Scripts
         private char _direction;
         private Vector3 _movePosition;
         private float _tileMoveSpeed;
-
+		public float MoveSpeed = 20;
+		public bool EaseMovement = true;
         void Start()
         {
             _movePosition = transform.position;
-            _tileMoveSpeed = (20f*Time.deltaTime);
+            _tileMoveSpeed = (MoveSpeed*Time.deltaTime);
         }
         void Update ()
         {
@@ -101,7 +102,8 @@ namespace Assets.Scripts
                 _isMoving = false;
                 return;
             }
-            transform.position = Vector3.MoveTowards(transform.position, _movePosition, _tileMoveSpeed);
+
+			transform.position = (EaseMovement)?(Vector3.Lerp(transform.position, _movePosition, _tileMoveSpeed)):(Vector3.MoveTowards(transform.position, _movePosition, _tileMoveSpeed));
         }
 
         private void GetInput()
