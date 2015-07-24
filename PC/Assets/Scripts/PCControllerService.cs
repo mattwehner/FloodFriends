@@ -8,19 +8,19 @@ namespace Assets.Scripts
         void Update () {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                WorldController.Direction = 'N';
+                WorldController.MoveInDirection('N');
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                WorldController.Direction = 'S';
+                WorldController.MoveInDirection('S');
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                WorldController.Direction = 'E';
+                WorldController.MoveInDirection('E');
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                WorldController.Direction = 'W';
+                WorldController.MoveInDirection('W');
             }
         }
     }

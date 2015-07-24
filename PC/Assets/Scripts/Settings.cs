@@ -6,7 +6,7 @@ namespace Assets.Scripts
 
         internal class GameObjects
         {
-            internal static float TileMovementSpeed = 0.1f;
+            internal static float TileMovementSpeed = (20f * Time.deltaTime);
         }
     }
 }
