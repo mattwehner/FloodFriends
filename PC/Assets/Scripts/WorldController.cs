@@ -15,13 +15,16 @@ namespace Assets.Scripts
         internal static List<GameObject> Tiles;
         internal static List<string> MovingTiles;
 
-        public static bool CanMove { get; set; }
-
         // Use this for initialization
         void Awake ()
         {
             Tiles = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tile"));
             MovingTiles = new List<string>();
+        }
+
+        void Update()
+        {
+            
         }
 
         internal static void MoveInDirection(char direction)
