@@ -18,7 +18,7 @@ namespace Assets.Scripts
 
         private void Start()
         {
-            _gridSize = WorldController.GridSize;
+            _gridSize = WorldStorage.GridSize;
             _tileMoveSpeed = Settings.GameObjects.TileMovementSpeed;
             _movePosition = transform.position;
 
@@ -40,34 +40,34 @@ namespace Assets.Scripts
             
             _toDelete = (toSelf > toCollided);
 
-            if (!_toDelete)
+            if (_toDelete) return;
+
+            TileSize += (int) collided.GetComponent<Rigidbody>().mass;
+            Debug.Log("Increasing " + gameObject.name + " tile size from " + Rigidbody.mass + " to " + TileSize);
+
+            var raftSize = WorldStorage.Raft_SM;
+            var raftPosition = transform.position;
+
+            switch (TileSize)
             {
-                TileSize += (int) collided.GetComponent<Rigidbody>().mass;
-                Debug.Log("Increasing " + gameObject.name + " tile size from " + Rigidbody.mass + " to " + TileSize);
-
-                var raftSize = WorldController.Raft_SM;
-                var raftPosition = transform.position;
-
-                switch (TileSize)
-                {
-                    case 2:
-                        raftSize = WorldController.Raft_MD;
-                        raftPosition = new Vector3(transform.position.x, 0.25f, transform.position.z);
-                        break;
-                    case 3:
-                        raftSize = WorldController.Raft_LG;
-                        raftPosition = new Vector3(transform.position.x, 0.375f, transform.position.z);
-                        break;
-                    case 4:
-                        raftSize = WorldController.Raft_XL;
-                        raftPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                        break;
-                }
-                Destroy(transform.GetChild(0).gameObject);
-                GameObject newRaft = Instantiate(raftSize, raftPosition, Quaternion.identity) as GameObject;
-                if (newRaft != null) newRaft.transform.parent = transform;
-                Rigidbody.mass = TileSize;
+                case 2:
+                    raftSize = WorldStorage.Raft_MD;
+                    raftPosition = new Vector3(transform.position.x, 0.25f, transform.position.z);
+                    break;
+                case 3:
+                    raftSize = WorldStorage.Raft_LG;
+                    raftPosition = new Vector3(transform.position.x, 0.375f, transform.position.z);
+                    break;
+                case 4:
+                    raftSize = WorldStorage.Raft_XL;
+                    raftPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                    break;
             }
+
+            Destroy(transform.GetChild(0).gameObject);
+            GameObject newRaft = Instantiate(raftSize, raftPosition, Quaternion.identity) as GameObject;
+            if (newRaft != null) newRaft.transform.parent = transform;
+            Rigidbody.mass = TileSize;
         }
 
         public void Move(char direction)
@@ -131,7 +131,7 @@ namespace Assets.Scripts
 
         private void PositionCheck()
         {
-            var stillMovingList = WorldController.MovingTiles;
+            var stillMovingList = WorldStorage.MovingTiles;
             var thisTile = gameObject.name;
 
             if (transform.position == _movePosition)
@@ -143,7 +143,7 @@ namespace Assets.Scripts
 
                 if (_toDelete)
                 {
-                    WorldController.Tiles.Remove(gameObject);
+                    WorldStorage.Tiles.Remove(gameObject);
                     Destroy(gameObject);
                 }
                 return;
