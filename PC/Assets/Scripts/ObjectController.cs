@@ -11,6 +11,7 @@ namespace Assets.Scripts
         private int _gridSize;
         private float _tileMoveSpeed;
         private Vector3 _movePosition;
+        private bool _toDelete;
 
         private void Start()
         {
@@ -22,6 +23,16 @@ namespace Assets.Scripts
         private void Update()
         {
             PositionCheck();
+        }
+
+        void OnTriggerEnter(Collider collided)
+        {
+            if (collided.tag != "Tile") return;
+
+            var toSelf = Vector3.Distance(transform.position, _movePosition);
+            var toCollided = Vector3.Distance(collided.transform.position, _movePosition);
+
+            _toDelete = (toSelf > toCollided);
         }
 
         public void Move(char direction)
@@ -94,8 +105,15 @@ namespace Assets.Scripts
                 {
                     stillMovingList.Remove(thisTile);
                 }
+
+                if (_toDelete)
+                {
+                    WorldController.Tiles.Remove(gameObject);
+                    Destroy(gameObject);
+                }
                 return;
             }
+
             if (!stillMovingList.Contains(thisTile))
             {
                 stillMovingList.Add(thisTile);

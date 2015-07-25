@@ -15,11 +15,21 @@ namespace Assets.Scripts
         internal static List<GameObject> Tiles;
         internal static List<string> MovingTiles;
 
+        public static GameObject Raft_SM;
+        public static GameObject Raft_MD;
+        public static GameObject Raft_LG;
+        public static GameObject Raft_XL;
+
         // Use this for initialization
         void Awake ()
         {
             Tiles = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tile"));
             MovingTiles = new List<string>();
+
+            Raft_SM = (GameObject)Resources.Load("Prefabs/Raft_SM");
+            Raft_MD = (GameObject)Resources.Load("Prefabs/Raft_MD");
+            Raft_LG = (GameObject)Resources.Load("Prefabs/Raft_LG");
+            Raft_XL = (GameObject)Resources.Load("Prefabs/Raft_XL");
         }
 
         void Update()
