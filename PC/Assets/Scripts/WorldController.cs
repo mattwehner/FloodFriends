@@ -8,6 +8,7 @@ namespace Assets.Scripts
     public class WorldController : MonoBehaviour
     {
         internal static readonly int GridSize = 5;
+        internal int MoveCount = 0;
 
         public static char NextDirection;
         public static char Direction;
@@ -20,7 +21,6 @@ namespace Assets.Scripts
         public static GameObject Raft_LG;
         public static GameObject Raft_XL;
 
-        // Use this for initialization
         void Awake ()
         {
             Tiles = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tile"));
@@ -30,11 +30,27 @@ namespace Assets.Scripts
             Raft_MD = (GameObject)Resources.Load("Prefabs/Raft_MD");
             Raft_LG = (GameObject)Resources.Load("Prefabs/Raft_LG");
             Raft_XL = (GameObject)Resources.Load("Prefabs/Raft_XL");
+
+
         }
 
         void Update()
         {
-            
+            if (Tiles.Count == 1)
+            {
+                LevelCompleted();
+            }
+
+        }
+
+        private void LevelCompleted()
+        {
+            MovingTiles.Add("PAUSED");
+        }
+
+        internal static void RestartLevel()
+        {
+            Application.LoadLevel(0);
         }
 
         internal static void MoveInDirection(char direction)

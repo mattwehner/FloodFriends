@@ -12,12 +12,18 @@ namespace Assets.Scripts
         private float _tileMoveSpeed;
         private Vector3 _movePosition;
         private bool _toDelete;
+        internal int TileSize;
+
+        internal Rigidbody Rigidbody;
 
         private void Start()
         {
             _gridSize = WorldController.GridSize;
             _tileMoveSpeed = Settings.GameObjects.TileMovementSpeed;
             _movePosition = transform.position;
+
+            Rigidbody = gameObject.GetComponent<Rigidbody>();
+            TileSize = (int) Rigidbody.mass;
         }
 
         private void Update()
@@ -31,8 +37,37 @@ namespace Assets.Scripts
 
             var toSelf = Vector3.Distance(transform.position, _movePosition);
             var toCollided = Vector3.Distance(collided.transform.position, _movePosition);
-
+            
             _toDelete = (toSelf > toCollided);
+
+            if (!_toDelete)
+            {
+                TileSize += (int) collided.GetComponent<Rigidbody>().mass;
+                Debug.Log("Increasing " + gameObject.name + " tile size from " + Rigidbody.mass + " to " + TileSize);
+
+                var raftSize = WorldController.Raft_SM;
+                var raftPosition = transform.position;
+
+                switch (TileSize)
+                {
+                    case 2:
+                        raftSize = WorldController.Raft_MD;
+                        raftPosition = new Vector3(transform.position.x, 0.25f, transform.position.z);
+                        break;
+                    case 3:
+                        raftSize = WorldController.Raft_LG;
+                        raftPosition = new Vector3(transform.position.x, 0.375f, transform.position.z);
+                        break;
+                    case 4:
+                        raftSize = WorldController.Raft_XL;
+                        raftPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                        break;
+                }
+                Destroy(transform.GetChild(0).gameObject);
+                GameObject newRaft = Instantiate(raftSize, raftPosition, Quaternion.identity) as GameObject;
+                if (newRaft != null) newRaft.transform.parent = transform;
+                Rigidbody.mass = TileSize;
+            }
         }
 
         public void Move(char direction)
