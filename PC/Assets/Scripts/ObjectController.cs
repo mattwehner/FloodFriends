@@ -33,16 +33,28 @@ namespace Assets.Scripts
 
         void OnTriggerEnter(Collider collided)
         {
-            if (collided.tag != "Tile") return;
+            if (collided.tag != "Tile" && collided.tag != "Danger") return;
 
+            if (collided.tag == "Tile")
+            {
+                OnTileCollision(collided);
+            }
+            else
+            {
+                OnDangerCollision();
+            }
+        }
+
+        private void OnTileCollision(Collider collided)
+        {
             var toSelf = Vector3.Distance(transform.position, _movePosition);
             var toCollided = Vector3.Distance(collided.transform.position, _movePosition);
-            
+
             _toDelete = (toSelf > toCollided);
 
             if (_toDelete) return;
 
-            TileSize += (int) collided.GetComponent<Rigidbody>().mass;
+            TileSize += (int)collided.GetComponent<Rigidbody>().mass;
             Debug.Log("Increasing " + gameObject.name + " tile size from " + Rigidbody.mass + " to " + TileSize);
 
             var raftSize = WorldStorage.Raft_SM;
@@ -65,9 +77,16 @@ namespace Assets.Scripts
             }
 
             Destroy(transform.GetChild(0).gameObject);
-			GameObject newRaft = Instantiate(raftSize, raftPosition, Quaternion.AngleAxis(90, Vector3.right)) as GameObject;
+            GameObject newRaft = Instantiate(raftSize, raftPosition, Quaternion.AngleAxis(90, Vector3.right)) as GameObject;
             if (newRaft != null) newRaft.transform.parent = transform;
             Rigidbody.mass = TileSize;
+        }
+
+        private void OnDangerCollision()
+        {
+            WorldStorage.LevelWon = false;
+            WorldStorage.LevelLost = true;
+            Destroy(transform.GetChild(0).gameObject);
         }
 
         public void Move(char direction)

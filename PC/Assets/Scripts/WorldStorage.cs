@@ -21,8 +21,10 @@ namespace Assets.Scripts
         public static GameObject Raft_XL;
 
         public GameObject WinText;
+        public GameObject LoseText;
         public Text MoveCounter;
         public static bool LevelWon;
+        public static bool LevelLost;
 
         void Awake()
         {
@@ -36,8 +38,10 @@ namespace Assets.Scripts
 
             MoveCount = 0;
             LevelWon = false;
+            LevelLost = false;
 
             WinText.SetActive(LevelWon);
+            LoseText.SetActive(LevelLost);
             MoveCounter.text = MoveCount.ToString();
         }
 
@@ -45,6 +49,7 @@ namespace Assets.Scripts
         {
             MoveCounter.text = MoveCount.ToString();
             WinText.SetActive(LevelWon);
+            LoseText.SetActive(LevelLost);
         }
     }
 }
