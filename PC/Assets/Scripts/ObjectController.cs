@@ -83,10 +83,10 @@ namespace Assets.Scripts
         }
 
         private void OnDangerCollision()
-        {
+        {Destroy(gameObject);
             WorldStorage.LevelWon = false;
             WorldStorage.LevelLost = true;
-            Destroy(transform.GetChild(0).gameObject);
+            
         }
 
         public void Move(char direction)
