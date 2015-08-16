@@ -76,10 +76,10 @@ namespace Assets.Scripts
                     break;
             }
 
-            Destroy(transform.GetChild(0).gameObject);
-            GameObject newRaft = Instantiate(raftSize, raftPosition, Quaternion.AngleAxis(90, Vector3.right)) as GameObject;
-            if (newRaft != null) newRaft.transform.parent = transform;
-            Rigidbody.mass = TileSize;
+            //Destroy(transform.GetChild(0).gameObject);
+            //GameObject newRaft = Instantiate(raftSize, raftPosition, Quaternion.AngleAxis(90, Vector3.right)) as GameObject;
+            //if (newRaft != null) newRaft.transform.parent = transform;
+            //Rigidbody.mass = TileSize;
         }
 
         private void OnDangerCollision()
