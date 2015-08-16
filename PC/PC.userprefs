@@ -1,9 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WorldStorage.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AnimtedTextureUV.js">
     <Files>
-      <File FileName="Assets\Scripts\ObjectController.cs" Line="68" Column="100" />
-      <File FileName="Assets\Scripts\WorldStorage.cs" Line="32" Column="39" />
+      <File FileName="Assets\Scripts\ObjectController.cs" Line="68" Column="27" />
+      <File FileName="Assets\Scripts\WorldStorage.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AnimatedTextureUV.cs" Line="24" Column="31" />
+      <File FileName="Assets\Scripts\AnimtedTextureUV.js" Line="26" Column="50" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

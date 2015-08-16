@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{1FFD990B-CD2E-010C-34CB-6B6AAAE13649}</ProjectGuid>
+	<ProjectGuid>{619766FC-7E8E-347F-9C96-B2039232F289}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-UnityScript</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,13 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\LevelSelect.cs" />
-     <Compile Include="Assets\Scripts\MenuCommands.cs" />
-     <Compile Include="Assets\Scripts\ObjectController.cs" />
-     <Compile Include="Assets\Scripts\PCControllerService.cs" />
-     <Compile Include="Assets\Scripts\Settings.cs" />
-     <Compile Include="Assets\Scripts\WorldController.cs" />
-     <Compile Include="Assets\Scripts\WorldStorage.cs" />
+     <Compile Include="Assets\Scripts\AnimtedTextureUV.js" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
