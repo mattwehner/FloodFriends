@@ -22,11 +22,6 @@ namespace Assets.Scripts
             {
                 WorldController.MoveInDirection('W');
             }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                WorldController.RestartLevel();
-            }
         }
     }
 }

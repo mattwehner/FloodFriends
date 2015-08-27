@@ -52,7 +52,13 @@ namespace Assets.Scripts
 
             _toDelete = (toSelf > toCollided);
 
-            if (_toDelete) return;
+            if (_toDelete)
+            {
+                WorldStorage.Tiles.Remove(gameObject);
+                WorldStorage.MovingTiles.Remove(gameObject.name);
+                Destroy(gameObject);
+                return;
+            };
 
             TileSize += (int)collided.GetComponent<Rigidbody>().mass;
             Debug.Log("Increasing " + gameObject.name + " tile size from " + Rigidbody.mass + " to " + TileSize);
@@ -70,23 +76,18 @@ namespace Assets.Scripts
                     raftSize = WorldStorage.Raft_LG;
                     raftPosition = new Vector3(transform.position.x, 0.375f, transform.position.z);
                     break;
-                case 4:
-                    raftSize = WorldStorage.Raft_XL;
-                    raftPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                    break;
             }
 
             //Destroy(transform.GetChild(0).gameObject);
             //GameObject newRaft = Instantiate(raftSize, raftPosition, Quaternion.AngleAxis(90, Vector3.right)) as GameObject;
             //if (newRaft != null) newRaft.transform.parent = transform;
-            //Rigidbody.mass = TileSize;
         }
 
         private void OnDangerCollision()
         {
             WorldStorage.LevelWon = false;
             WorldStorage.LevelLost = true;
-            Destroy(transform.GetChild(0).gameObject);
+            Destroy(gameObject);
         }
 
         public void Move(char direction)
@@ -158,12 +159,6 @@ namespace Assets.Scripts
                 if (stillMovingList.Contains(thisTile))
                 {
                     stillMovingList.Remove(thisTile);
-                }
-
-                if (_toDelete)
-                {
-                    WorldStorage.Tiles.Remove(gameObject);
-                    Destroy(gameObject);
                 }
                 return;
             }

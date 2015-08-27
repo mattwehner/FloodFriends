@@ -31,10 +31,9 @@ namespace Assets.Scripts
             Tiles = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tile"));
             MovingTiles = new List<string>();
 
-            Raft_SM = (GameObject)Resources.Load("Prefabs/Raft_SM");
-            Raft_MD = (GameObject)Resources.Load("Prefabs/Raft_MD");
-            Raft_LG = (GameObject)Resources.Load("Prefabs/Raft_LG");
-            Raft_XL = (GameObject)Resources.Load("Prefabs/Raft_XL");
+            Raft_SM = (GameObject)Resources.Load("Prefabs/1Combined");
+            Raft_MD = (GameObject)Resources.Load("Prefabs/2Combined");
+            Raft_LG = (GameObject)Resources.Load("Prefabs/3Combined");
 
             MoveCount = 0;
             LevelWon = false;

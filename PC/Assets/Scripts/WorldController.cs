@@ -7,6 +7,11 @@ namespace Assets.Scripts
 {
     public class WorldController : MonoBehaviour
     {
+        void Awake()
+        {
+            WorldStorage.LevelWon = false;
+            WorldStorage.LevelLost = false;
+        }
         void Update()
         {
             if (WorldStorage.Tiles.Count == 1)
