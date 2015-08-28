@@ -1,3 +1,14 @@
 /PC/Temp
 /PC/Library/metadata
 /Builds
+/PC/Library
+/PC/obj
+/PC/PC-csharp.sln
+/PC/UnityVS.PC.CSharp.csproj
+/PC/UnityVS.PC.sln
+/PC/Assembly-CSharp.csproj
+/PC/Assembly-CSharp-vs.csproj
+/PC/Assembly-UnityScript.unityproj
+/PC/Assembly-UnityScript-vs.unityproj
+/PC/PC.sln
+/PC/PC.userprefs
