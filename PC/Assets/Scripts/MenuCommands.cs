@@ -21,8 +21,17 @@ namespace Assets.Scripts
 
         public void ResetLevel()
         {
-            var loadedLevel = Application.loadedLevel;
-            Application.LoadLevel(loadedLevel);
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
+        public void NextLevel()
+        {
+            Application.LoadLevel(Application.loadedLevel + 1);
+        }
+
+        public void PreviousLevel()
+        {
+            Application.LoadLevel(Application.loadedLevel - 1);
         }
     }
 }

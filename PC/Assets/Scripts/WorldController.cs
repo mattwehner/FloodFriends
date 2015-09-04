@@ -7,10 +7,14 @@ namespace Assets.Scripts
 {
     public class WorldController : MonoBehaviour
     {
+        public int Par;
+        public GameObject ShowScores;
+
         void Awake()
         {
             WorldStorage.LevelWon = false;
             WorldStorage.LevelLost = false;
+            WorldStorage.Par = Par;
         }
         void Update()
         {
@@ -26,22 +30,27 @@ namespace Assets.Scripts
 
         private void LevelLost()
         {
+            if (WorldStorage.MovingTiles.Contains("COMPLETE"))
+            {
+                return;
+            }
             WorldStorage.MovingTiles.Add("COMPLETE");
-            WorldStorage.LevelWon = false;
-            WorldStorage.LevelLost = true;
+            ShowScores.GetComponent<ShowScore>().CalculateScore(false);
         }
 
         private void LevelCompleted()
         {
+            if (WorldStorage.MovingTiles.Contains("COMPLETE"))
+            {
+                return;
+            }
             WorldStorage.MovingTiles.Add("COMPLETE");
-            WorldStorage.LevelLost = false;
-            WorldStorage.LevelWon = true;
+            ShowScores.GetComponent<ShowScore>().CalculateScore(true);
         }
 
         internal static void RestartLevel()
         {
-            //must change to current level
-            Application.LoadLevel(1);
+            Application.LoadLevel(Application.loadedLevel);
         }
 
         internal static void MoveInDirection(char direction)
