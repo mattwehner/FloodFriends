@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.1.2f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -68,8 +70,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Interfaces\IController.cs" />
+    <Compile Include="Assets\Scripts\Legacy\AnimatedTextureUv.cs" />
+    <Compile Include="Assets\Scripts\Legacy\LevelSelect.cs" />
+    <Compile Include="Assets\Scripts\Legacy\MenuCommands.cs" />
+    <Compile Include="Assets\Scripts\Legacy\ObjectController.cs" />
+    <Compile Include="Assets\Scripts\Legacy\Settings.cs" />
+    <Compile Include="Assets\Scripts\Legacy\ShowScore.cs" />
+    <Compile Include="Assets\Scripts\Legacy\WorldController.cs" />
+    <Compile Include="Assets\Scripts\Legacy\WorldStorage.cs" />
     <Compile Include="Assets\Scripts\LevelList.cs" />
-    <Compile Include="Assets\Scripts\MenuCommands.cs" />
+    <Compile Include="Assets\Scripts\ControllerService.cs" />
+    <Compile Include="Assets\Scripts\Levels\Level.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
